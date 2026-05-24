@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harshit | Web Developer & Video Editor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.08);
+      --text: #f5f5f5;
+      --muted: #b8bfd3;
+      --primary: #7c5cff;
+      --secondary: #00d4ff;
+      --accent: #ff5ca8;
+      --border: rgba(255,255,255,0.15);
+      --shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #090d1a, #10172d, #1b1145);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    .bg-blur {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(124,92,255,0.3), transparent 70%);
+      filter: blur(60px);
+      z-index: -1;
+    }
+
+    .blur1 {
+      top: -100px;
+      left: -100px;
+    }
+
+    .blur2 {
+      bottom: -150px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(0,212,255,0.25), transparent 70%);
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 8%;
+      background: rgba(10, 10, 20, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    nav h2 {
+      font-size: 1.6rem;
+      color: var(--secondary);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 22px;
+      list-style: none;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: var(--secondary);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 8%;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .hero-text h1 {
+      font-size: 4rem;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-text p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 30px;
+      max-width: 650px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 14px;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .primary-btn {
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      box-shadow: var(--shadow);
+    }
+
+    .secondary-btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px);
+    }
+
+    .hero-card {
+      flex: 1;
+      min-width: 280px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 35px;
+      backdrop-filter: blur(15px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card img {
+      width: 100%;
+      border-radius: 22px;
+      margin-bottom: 20px;
+      object-fit: cover;
+    }
+
+    .hero-card h3 {
+      margin-bottom: 10px;
+      color: var(--secondary);
+    }
+
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 50px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      transition: 0.35s ease;
+      animation: fadeUp 0.8s ease;
+      box-shadow: var(--shadow);
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0,212,255,0.5);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+
+    .card p {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .portfolio img,
+    .gallery img {
+      width: 100%;
+      border-radius: 18px;
+      height: 230px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+
+    .pricing-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tag {
+      position: absolute;
+      top: 15px;
+      right: -40px;
+      transform: rotate(45deg);
+      background: var(--accent);
+      color: white;
+      padding: 8px 50px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      margin: 20px 0;
+      color: white;
+    }
+
+    .pricing-card ul {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+
+    .pricing-card ul li {
+      margin: 10px 0;
+      color: var(--muted);
+    }
+
+    .review-box {
+      position: relative;
+    }
+
+    .review-box::before {
+      content: '“';
+      position: absolute;
+      top: -20px;
+      left: 10px;
+      font-size: 6rem;
+      color: rgba(255,255,255,0.08);
+    }
+
+    .faq {
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .faq-item {
+      margin-bottom: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: white;
+      padding: 20px;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 20px 20px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      align-items: start;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    input,
+    textarea {
+      padding: 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      color: white;
+      outline: none;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    footer {
+      padding: 35px 8%;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      margin-top: 50px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .socials a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      transition: 0.3s;
+    }
+
+    .socials a:hover {
+      background: var(--primary);
+    }
+
+    @media (max-width: 900px) {
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+
+      nav ul {
+        display: none;
+      }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 18px;
+      cursor: pointer;
+      z-index: 1000;
+      font-weight: 600;
+      box-shadow: var(--shadow);
+    }
+
+    .light-mode {
+      --card: rgba(255,255,255,0.92);
+      --text: #111827;
+      --muted: #4b5563;
+      --border: rgba(0,0,0,0.08);
+      --primary: #5b5df0;
+      --secondary: #0891b2;
+      --accent: #db2777;
+      background: linear-gradient(135deg, #f8fafc, #e0f2fe, #eef2ff);
+      color: #111827;
+    }
+
+    .light-mode .card,
+    .light-mode .hero-card,
+    .light-mode .faq-item,
+    .light-mode nav,
+    .light-mode .socials a,
+    .light-mode input,
+    .light-mode textarea {
+      background: rgba(255,255,255,0.95);
+      color: #111827;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .light-mode .card p,
+    .light-mode .section-subtitle,
+    .light-mode footer,
+    .light-mode .faq-answer {
+      color: #4b5563;
+    }
+
+    .light-mode nav h2,
+    .light-mode .card h3,
+    .light-mode .hero-card h3 {
+      color: #0891b2;
+    }
+
+    .light-mode nav ul li a,
+    .light-mode .faq-question {
+      color: #111827;
+    }
+
+    .light-mode .secondary-btn {
+      background: rgba(0,0,0,0.04);
+      color: #111827;
+    }
+
+    .light-mode .bg-blur {
+      opacity: 0.35;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 40px;
+      }
+
+      .hero-text h1 {
+        font-size: 2.4rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-blur blur1"></div>
+  <div class="bg-blur blur2"></div>
+
+  <nav>
+    <h2>Harshit.dev</h2>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#pricing">Plans</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Harshit Soni <br><span>Responsive Web Developer</span> & Video Editor</h1>
+      <p>
+        Hi, I am a frontend web development learner skilled in HTML and CSS. I create clean, responsive, and user-friendly websites and landing pages. Currently improving my skills in JavaScript and modern web development. I focus on clean design, fast delivery, and client satisfaction.
+      </p>
+
+      <div class="btn-group">
+        <a href="#portfolio" class="btn primary-btn">View My Work</a>
+        <a href="#contact" class="btn secondary-btn">Hire Me</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" alt="Developer Setup">
+      <h3>About Me</h3>
+      <p>
+        Frontend web development learner focused on responsive websites, landing pages, portfolio websites, and creative video editing. Open for freelance and beginner projects.
+      </p>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-subtitle">
+      Frontend developer focused on creating responsive landing pages, portfolio websites, and modern user interfaces with clean design and smooth experience.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Responsive Websites</h3>
+        <p>
+          I build clean, modern, mobile-friendly websites optimized for speed,
+          user experience, and conversions.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Landing Pages</h3>
+        <p>
+          Creative landing pages designed for businesses, creators, and startups.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Video Editing</h3>
+        <p>
+          Reels, YouTube videos, short-form edits, transitions, motion graphics,
+          and cinematic content editing.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <h2 class="section-title">Services</h2>
+    <p class="section-subtitle">Professional frontend web development and creative video editing services.</p>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Business Website</h3>
+        <p>
+          Responsive websites for brands, shops, startups, and personal businesses.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Portfolio Website</h3>
+        <p>
+          Showcase your work professionally with custom portfolio designs.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Fiverr Gig Landing Page</h3>
+        <p>
+          High-converting pages that help clients understand your services quickly.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Video Editing Services</h3>
+        <p>
+          YouTube edits, social media content, cinematic clips, reels, and ads.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <h2 class="section-title">My Works</h2>
+    <p class="section-subtitle">
+      Practice and showcase projects built while learning frontend web development and video editing.
+    </p>
+
+    <div class="grid portfolio">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop" alt="Project">
+        <h3>Landing Page Design</h3>
+        <p>Modern responsive landing page for a startup business.</p>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop" alt="Project">
+        <h3>Portfolio Website</h3>
+        <p>Creative portfolio website with smooth animations and responsive layout.</p>
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop" alt="Project">
+        <h3>Video Editing Showcase</h3>
+        <p>Professional edits for YouTube shorts and social media reels.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2 class="section-title">Gallery</h2>
+    <p class="section-subtitle">Creative showcase of website concepts, responsive UI designs, and editing previews.</p>
+
+    <div class="grid gallery">
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      </div>
+
+      <div class="card">
+        <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop" alt="Gallery">
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2 class="section-title">Plans & Pricing</h2>
+    <p class="section-subtitle">Affordable pricing plans for responsive websites and editing services.</p>
+
+    <div class="grid">
+      <div class="card pricing-card">
+        <h3>Basic</h3>
+        <div class="price">$10</div>
+        <ul>
+          <li>1 Responsive Page</li>
+          <li>Modern Design</li>
+          <li>Basic Animations</li>
+          <li>2 Revisions</li>
+        </ul>
+        <a href="#contact" class="btn primary-btn">Choose Plan</a>
+      </div>
+
+      <div class="card pricing-card">
+        <div class="tag">POPULAR</div>
+        <h3>Standard</h3>
+        <div class="price">$25</div>
+        <ul>
+          <li>Multi-Section Website</li>
+          <li>Responsive Layout</li>
+          <li>Custom UI Design</li>
+          <li>5 Revisions</li>
+        </ul>
+        <a href="#contact" class="btn primary-btn">Choose Plan</a>
+      </div>
+
+      <div class="card pricing-card">
+        <h3>Premium</h3>
+        <div class="price">$45</div>
+        <ul>
+          <li>Complete Website</li>
+          <li>Advanced Animations</li>
+          <li>Priority Support</li>
+          <li>Unlimited Revisions</li>
+        </ul>
+        <a href="#contact" class="btn primary-btn">Choose Plan</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <h2 class="section-title">Client Reviews</h2>
+    <p class="section-subtitle">Focused on client satisfaction, responsive communication, and clean modern designs.</p>
+
+    <div class="grid">
+      <div class="card review-box">
+        <p>
+          Amazing responsive website design with smooth communication and fast delivery.
+        </p>
+        <h3>— Aarav Sharma</h3>
+      </div>
+
+      <div class="card review-box">
+        <p>
+          Very creative video editing work. The final result looked professional.
+        </p>
+        <h3>— Priya Verma</h3>
+      </div>
+
+      <div class="card review-box">
+        <p>
+          Excellent experience. The landing page looked modern and worked perfectly.
+        </p>
+        <h3>— Rohan Mehta</h3>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq-section">
+    <h2 class="section-title">FAQs</h2>
+
+    <div class="faq">
+      <div class="faq-item">
+        <button class="faq-question">
+          What services do you provide?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          I create responsive websites, landing pages, portfolio websites, and video edits.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          How can clients contact you?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          Clients can contact me using the contact form, Fiverr profile link, email, or social media.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question">
+          Which tools do you use?
+          <span>+</span>
+        </button>
+        <div class="faq-answer">
+          HTML, CSS, JavaScript, VS Code, Canva, CapCut, Premiere Pro, and more.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2 class="section-title">Contact Me</h2>
+    <p class="section-subtitle">
+      Feel free to contact me for responsive websites, landing pages, portfolio projects, and video editing work.
+    </p>
+
+    <div class="contact-wrapper">
+      <div class="card">
+        <h3>Let's Work Together</h3>
+        <p style="margin-top: 15px; color: var(--muted); line-height: 1.8;">
+          📧 Email: harshit1348soni@gmail.com<br><br>📱 Phone & WhatsApp: +91 8103726818<br><br>🎯 Fiverr Username: webnova_07<br><br>💻 Available for beginner freelance projects, responsive websites, landing pages, portfolio websites, YouTube Shorts editing, and reels editing.
+        </p>
+
+        <div class="socials">
+          <a href="https://www.fiverr.com/webnova_07" target="_blank">Fiverr</a>
+          <a href="mailto:harshit1348soni@gmail.com" target="_blank">Email</a>
+          <a href="https://wa.me/918103726818" target="_blank">WhatsApp</a>
+          <a href="tel:8103726818">Call</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <form id="contact-form">
+          <input type="text" name="name" placeholder="Your Name" required>
+          <input type="email" name="email" placeholder="Your Email" required>
+          <textarea name="message" placeholder="Tell me about your project" required></textarea>
+          <button type="submit" class="btn primary-btn">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      © 2026 Harshit Soni | Responsive Web Developer & Video Editor
+    </p>
+  </footer>
+
+  <button class="theme-toggle" id="theme-toggle">🌙 Dark/Light</button>
+
+  <script>
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const answer = btn.nextElementSibling;
+        const icon = btn.querySelector('span');
+
+        if (answer.style.display === 'block') {
+          answer.style.display = 'none';
+          icon.textContent = '+';
+        } else {
+          answer.style.display = 'block';
+          icon.textContent = '-';
+        }
+      });
+    });
+
+    // Contact form demo
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Message sent successfully! Replace this with your backend or EmailJS integration.');
+      this.reset();
+    });
+
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+    });
+  </script>
+</body>
+</html>
